@@ -10,7 +10,14 @@ export class TodoDynamoTable extends core.Construct {
       partitionKey: {
         name: "id",
         type: dynamo.AttributeType.STRING
-      }
+      },
+      stream: dynamo.StreamViewType.NEW_IMAGE,
+
+      // $1.25/month/million writes ... or 0.00000125 per write (1/5th cost for reads)
+      billingMode: dynamo.BillingMode.PAY_PER_REQUEST,
+
+      // only because this is a test app
+      removalPolicy: core.RemovalPolicy.DESTROY,
     });
   }
 }
