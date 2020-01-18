@@ -1,10 +1,17 @@
 import * as cdk from '@aws-cdk/core';
-import { TodoDynamoTable } from '../lib/todo-dynamo-table';
+import * as dynamo from '@aws-cdk/aws-dynamodb';
+import { DynamoTableWithStream } from '../lib/dynamo-table-with-stream';
 
 export class LambdaDdbStreamFanoutStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    new TodoDynamoTable(this, 'TodoDynamoTable');
+    new DynamoTableWithStream(this, 'TodoDynamoTable', {
+      tableName: "TodoTable-20200118",
+      partitionKey: {
+        name: "id",
+        type: dynamo.AttributeType.STRING
+      },
+    });
   }
 }
