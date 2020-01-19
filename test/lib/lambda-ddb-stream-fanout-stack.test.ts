@@ -6,14 +6,4 @@ test('SNAPSHOT: Lambda dynamodb fanout stack', () => {
   const app = new core.App();
   const stack = new LambdaDdbStreamFanout.LambdaDdbStreamFanoutStack(app, 'TestFanoutStack');
   expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-})
-
-// test('Empty Stack', () => {
-//     const app = new cdk.App();
-//     // WHEN
-//     const stack = new LambdaDdbStreamFanout.LambdaDdbStreamFanoutStack(app, 'MyTestStack');
-//     // THEN
-//     expectCDK(stack).to(matchTemplate({
-//       "Resources": {}
-//     }, MatchStyle.EXACT))
-// });
+});
