@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SNAPSHOT: Lambda dynamodb fanout stack 1`] = `
+Object {
+  "Resources": Object {
+    "TodoTable20200118D40ADDDF": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "AttributeDefinitions": Array [
+          Object {
+            "AttributeName": "id",
+            "AttributeType": "S",
+          },
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": Array [
+          Object {
+            "AttributeName": "id",
+            "KeyType": "HASH",
+          },
+        ],
+        "StreamSpecification": Object {
+          "StreamViewType": "NEW_IMAGE",
+        },
+        "TableName": "TodoTable-20200118",
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+}
+`;
