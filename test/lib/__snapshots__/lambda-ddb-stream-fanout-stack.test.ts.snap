@@ -19,6 +19,7 @@ Object {
   "Resources": Object {
     "LogInputLambdaOne6E970428": Object {
       "DependsOn": Array [
+        "LogInputLambdaOneServiceRoleDefaultPolicyABE06A47",
         "LogInputLambdaOneServiceRoleA4E95129",
       ],
       "Properties": Object {
@@ -71,6 +72,23 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
+    "LogInputLambdaOneDynamoDBEventSourceTestFanoutStackTodoTable202001180143AC0C71B4298C": Object {
+      "Properties": Object {
+        "BatchSize": 5,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "TodoTable20200118D40ADDDF",
+            "StreamArn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "LogInputLambdaOne6E970428",
+        },
+        "MaximumBatchingWindowInSeconds": 10,
+        "StartingPosition": "LATEST",
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
     "LogInputLambdaOneServiceRoleA4E95129": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -101,6 +119,54 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
+    },
+    "LogInputLambdaOneServiceRoleDefaultPolicyABE06A47": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "dynamodb:ListStreams",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "TodoTable20200118D40ADDDF",
+                        "Arn",
+                      ],
+                    },
+                    "/stream/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "dynamodb:DescribeStream",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TodoTable20200118D40ADDDF",
+                  "StreamArn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogInputLambdaOneServiceRoleDefaultPolicyABE06A47",
+        "Roles": Array [
+          Object {
+            "Ref": "LogInputLambdaOneServiceRoleA4E95129",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TodoTable20200118D40ADDDF": Object {
       "DeletionPolicy": "Delete",

@@ -5,10 +5,12 @@ export interface DynamoTableWithStreamProps extends dynamo.TableProps {
 }
 
 export class DynamoTableWithStream extends core.Construct {
+  public readonly table: dynamo.Table;
+
   constructor(scope: core.Construct, id: string, props: DynamoTableWithStreamProps) {
     super(scope, id);
 
-    const table = new dynamo.Table(scope, props.tableName || "dynamo-table", {
+    this.table = new dynamo.Table(scope, props.tableName || "dynamo-table", {
       ...props, // merge in props
 
       stream: dynamo.StreamViewType.NEW_IMAGE,

@@ -6,10 +6,12 @@ export interface LogInputLambdaProps {
 }
 
 export class LogInputLambda extends core.Construct {
+  public readonly inputLambda: lambda.Function;
+
   constructor(scope: core.Construct, id: string, props: LogInputLambdaProps) {
     super(scope, id);
 
-    new lambda.Function(this, props.name, {
+    this.inputLambda = new lambda.Function(this, props.name, {
       runtime: lambda.Runtime.NODEJS_12_X,
       code: lambda.Code.asset("dist/src/lambdas"),
       handler: "log-input.handler"
