@@ -2,7 +2,106 @@
 
 exports[`SNAPSHOT: Lambda dynamodb fanout stack 1`] = `
 Object {
+  "Parameters": Object {
+    "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81ArtifactHashA3DCBFA0": Object {
+      "Description": "Artifact hash for asset \\"ce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81\\"",
+      "Type": "String",
+    },
+    "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3Bucket9B060386": Object {
+      "Description": "S3 bucket for asset \\"ce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81\\"",
+      "Type": "String",
+    },
+    "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3VersionKey690F07D4": Object {
+      "Description": "S3 key for asset version \\"ce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81\\"",
+      "Type": "String",
+    },
+  },
   "Resources": Object {
+    "LogInputLambdaOne6E970428": Object {
+      "DependsOn": Array [
+        "LogInputLambdaOneServiceRoleA4E95129",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3Bucket9B060386",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3VersionKey690F07D4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3VersionKey690F07D4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "log-input.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LogInputLambdaOneServiceRoleA4E95129",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LogInputLambdaOneServiceRoleA4E95129": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
     "TodoTable20200118D40ADDDF": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
