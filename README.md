@@ -14,8 +14,28 @@ You'll need the following in your development environment
 - Node
 - AWS CLI
 - AWS Credentials set in ~./aws/credentials (`aws configure`)
-- TypeScript (`npm install -g typescript`)
+- TypeScript (`npm install -g typescript ts-node`)
 - CDK (`npm install -g aws-cdk`)
+
+## Deploy
+
+After you have set up your environment, it's simple:
+
+```
+npm run release
+cdk
+bootstrap
+cdk deploy
+```
+
+## Load data to Dynamo
+
+You can modify the `./src/todo-loader.ts` file to modify the data there, and the run the following command:
+
+```
+ts-node ./src/todo-loader.ts
+```
+
 
 ## Useful commands
 
