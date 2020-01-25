@@ -33,7 +33,7 @@ const load = async () => {
       } else {
         errorList.forEach(msg => console.log(msg));
       }
-    });
+    }).catch(err => console.error(err));
 }
 
 load();
