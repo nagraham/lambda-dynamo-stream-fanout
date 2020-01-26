@@ -17,6 +17,24 @@ Object {
     },
   },
   "Resources": Object {
+    "LimitedRetryDynamoEventSourcemapping283BCEA0": Object {
+      "Properties": Object {
+        "BatchSize": 3,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "TodoTable20200118D40ADDDF",
+            "StreamArn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "LogInputLambdaOne6E970428",
+        },
+        "MaximumBatchingWindowInSeconds": 10,
+        "MaximumRetryAttempts": 3,
+        "StartingPosition": "LATEST",
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
     "LogInputLambdaOne6E970428": Object {
       "DependsOn": Array [
         "LogInputLambdaOneServiceRoleDefaultPolicyABE06A47",
@@ -71,23 +89,6 @@ Object {
         "Runtime": "nodejs12.x",
       },
       "Type": "AWS::Lambda::Function",
-    },
-    "LogInputLambdaOneDynamoDBEventSourceTestFanoutStackTodoTable202001180143AC0C71B4298C": Object {
-      "Properties": Object {
-        "BatchSize": 5,
-        "EventSourceArn": Object {
-          "Fn::GetAtt": Array [
-            "TodoTable20200118D40ADDDF",
-            "StreamArn",
-          ],
-        },
-        "FunctionName": Object {
-          "Ref": "LogInputLambdaOne6E970428",
-        },
-        "MaximumBatchingWindowInSeconds": 10,
-        "StartingPosition": "LATEST",
-      },
-      "Type": "AWS::Lambda::EventSourceMapping",
     },
     "LogInputLambdaOneServiceRoleA4E95129": Object {
       "Properties": Object {

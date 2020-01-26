@@ -1,9 +1,8 @@
 import * as core from '@aws-cdk/core';
 import * as dynamo from '@aws-cdk/aws-dynamodb';
-import * as lambda from '@aws-cdk/aws-lambda';
-import { DynamoEventSource } from '@aws-cdk/aws-lambda-event-sources';
-import { DynamoTableWithStream } from '../lib/dynamo-table-with-stream';
-import { LogInputLambda } from '../lib/log-input-lambda';
+import { DynamoTableWithStream } from './dynamo-table-with-stream';
+import { LogInputLambda } from './log-input-lambda';
+import { LimitedRetryDynamoEventSource } from "./limited-retry-dynamo-event-source";
 
 export class LambdaDdbStreamFanoutStack extends core.Stack {
   constructor(scope: core.Construct, id: string, props?: core.StackProps) {
@@ -19,10 +18,9 @@ export class LambdaDdbStreamFanoutStack extends core.Stack {
 
     const logInputLambda = new LogInputLambda(this, 'LogInputLambdaOne', { name: "LogInputLambdaOne" });
 
-    logInputLambda.inputLambda.addEventSource(new DynamoEventSource(todoDynamoTable.table, {
-      startingPosition: lambda.StartingPosition.LATEST,
-      batchSize: 5,
-      maxBatchingWindow: core.Duration.seconds(10),
-    }));
+    new LimitedRetryDynamoEventSource(this, "LimitedRetryDynamoEventSource", {
+      dynamoTable: todoDynamoTable.table,
+      lambdaFunction: logInputLambda.inputLambda
+    });
   }
 }
