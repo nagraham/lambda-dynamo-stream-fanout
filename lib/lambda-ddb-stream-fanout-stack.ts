@@ -1,7 +1,7 @@
 import * as core from '@aws-cdk/core';
 import * as dynamo from '@aws-cdk/aws-dynamodb';
 import { DynamoTableWithStream } from './dynamo-table-with-stream';
-import { LogInputLambda } from './log-input-lambda';
+import { BasicLambda } from './basic-lambda';
 import { LimitedRetryDynamoEventSource } from "./limited-retry-dynamo-event-source";
 
 export class LambdaDdbStreamFanoutStack extends core.Stack {
@@ -16,11 +16,22 @@ export class LambdaDdbStreamFanoutStack extends core.Stack {
       },
     });
 
-    const logInputLambda = new LogInputLambda(this, 'LogInputLambdaOne', { name: "LogInputLambdaOne" });
-
-    new LimitedRetryDynamoEventSource(this, "LimitedRetryDynamoEventSource", {
-      dynamoTable: todoDynamoTable.table,
-      lambdaFunction: logInputLambda.inputLambda
+    const logInputLambda = new BasicLambda(this, 'LogInputLambda', {
+      name: "LogInputLambda",
+      handler: "log-input.handler",
     });
+    new LimitedRetryDynamoEventSource(this, "TodoTableToLogInputLambdaEventSource", {
+      dynamoTable: todoDynamoTable.table,
+      lambdaFunction: logInputLambda.function
+    });
+
+    const todoLambda = new BasicLambda(this, 'TodoLambda', {
+      name: 'TodoLambda',
+      handler: 'todo-handler.handler',
+    })
+    new LimitedRetryDynamoEventSource(this, "TodoTableToTodoLambdaEventSource", {
+      dynamoTable: todoDynamoTable.table,
+      lambdaFunction: todoLambda.function,
+    })
   }
 }

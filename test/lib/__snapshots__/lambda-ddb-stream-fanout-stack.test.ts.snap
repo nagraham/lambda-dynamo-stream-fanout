@@ -3,47 +3,29 @@
 exports[`SNAPSHOT: Lambda dynamodb fanout stack 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81ArtifactHashA3DCBFA0": Object {
-      "Description": "Artifact hash for asset \\"ce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81\\"",
+    "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adArtifactHashF89D7BAE": Object {
+      "Description": "Artifact hash for asset \\"cc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34ad\\"",
       "Type": "String",
     },
-    "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3Bucket9B060386": Object {
-      "Description": "S3 bucket for asset \\"ce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81\\"",
+    "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adS3Bucket84CCB3A5": Object {
+      "Description": "S3 bucket for asset \\"cc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34ad\\"",
       "Type": "String",
     },
-    "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3VersionKey690F07D4": Object {
-      "Description": "S3 key for asset version \\"ce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81\\"",
+    "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adS3VersionKey74E962CF": Object {
+      "Description": "S3 key for asset version \\"cc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34ad\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "LimitedRetryDynamoEventSourcemapping283BCEA0": Object {
-      "Properties": Object {
-        "BatchSize": 3,
-        "EventSourceArn": Object {
-          "Fn::GetAtt": Array [
-            "TodoTable20200118D40ADDDF",
-            "StreamArn",
-          ],
-        },
-        "FunctionName": Object {
-          "Ref": "LogInputLambdaOne6E970428",
-        },
-        "MaximumBatchingWindowInSeconds": 10,
-        "MaximumRetryAttempts": 3,
-        "StartingPosition": "LATEST",
-      },
-      "Type": "AWS::Lambda::EventSourceMapping",
-    },
-    "LogInputLambdaOne6E970428": Object {
+    "LogInputLambda9AB18616": Object {
       "DependsOn": Array [
-        "LogInputLambdaOneServiceRoleDefaultPolicyABE06A47",
-        "LogInputLambdaOneServiceRoleA4E95129",
+        "LogInputLambdaServiceRoleDefaultPolicyC216A535",
+        "LogInputLambdaServiceRoleCA6E9A50",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3Bucket9B060386",
+            "Ref": "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adS3Bucket84CCB3A5",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -56,7 +38,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3VersionKey690F07D4",
+                          "Ref": "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adS3VersionKey74E962CF",
                         },
                       ],
                     },
@@ -69,7 +51,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersce813910eb1e61a76c03d9ea7dbd6eba43eb8be0ad1b241226a890f603dfbf81S3VersionKey690F07D4",
+                          "Ref": "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adS3VersionKey74E962CF",
                         },
                       ],
                     },
@@ -82,7 +64,7 @@ Object {
         "Handler": "log-input.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "LogInputLambdaOneServiceRoleA4E95129",
+            "LogInputLambdaServiceRoleCA6E9A50",
             "Arn",
           ],
         },
@@ -90,7 +72,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "LogInputLambdaOneServiceRoleA4E95129": Object {
+    "LogInputLambdaServiceRoleCA6E9A50": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -121,7 +103,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "LogInputLambdaOneServiceRoleDefaultPolicyABE06A47": Object {
+    "LogInputLambdaServiceRoleDefaultPolicyC216A535": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -160,10 +142,144 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "LogInputLambdaOneServiceRoleDefaultPolicyABE06A47",
+        "PolicyName": "LogInputLambdaServiceRoleDefaultPolicyC216A535",
         "Roles": Array [
           Object {
-            "Ref": "LogInputLambdaOneServiceRoleA4E95129",
+            "Ref": "LogInputLambdaServiceRoleCA6E9A50",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TodoLambda824170AD": Object {
+      "DependsOn": Array [
+        "TodoLambdaServiceRoleDefaultPolicy7E5F178B",
+        "TodoLambdaServiceRoleB5E6BE45",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adS3Bucket84CCB3A5",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adS3VersionKey74E962CF",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameterscc8d118caafcfdb07d6ce572b7e9eb52983dd8d2d3f89535f2ca78dbc37a34adS3VersionKey74E962CF",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "todo-handler.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "TodoLambdaServiceRoleB5E6BE45",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "TodoLambdaServiceRoleB5E6BE45": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TodoLambdaServiceRoleDefaultPolicy7E5F178B": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "dynamodb:ListStreams",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "TodoTable20200118D40ADDDF",
+                        "Arn",
+                      ],
+                    },
+                    "/stream/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "dynamodb:DescribeStream",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TodoTable20200118D40ADDDF",
+                  "StreamArn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TodoLambdaServiceRoleDefaultPolicy7E5F178B",
+        "Roles": Array [
+          Object {
+            "Ref": "TodoLambdaServiceRoleB5E6BE45",
           },
         ],
       },
@@ -192,6 +308,42 @@ Object {
       },
       "Type": "AWS::DynamoDB::Table",
       "UpdateReplacePolicy": "Delete",
+    },
+    "TodoTableToLogInputLambdaEventSourcemapping88EDD31F": Object {
+      "Properties": Object {
+        "BatchSize": 3,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "TodoTable20200118D40ADDDF",
+            "StreamArn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "LogInputLambda9AB18616",
+        },
+        "MaximumBatchingWindowInSeconds": 10,
+        "MaximumRetryAttempts": 3,
+        "StartingPosition": "LATEST",
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "TodoTableToTodoLambdaEventSourcemappingA0C7552A": Object {
+      "Properties": Object {
+        "BatchSize": 3,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "TodoTable20200118D40ADDDF",
+            "StreamArn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "TodoLambda824170AD",
+        },
+        "MaximumBatchingWindowInSeconds": 10,
+        "MaximumRetryAttempts": 3,
+        "StartingPosition": "LATEST",
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
     },
   },
 }
