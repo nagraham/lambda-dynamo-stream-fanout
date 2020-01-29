@@ -14,7 +14,7 @@ export class BasicLambda extends core.Construct {
 
     this.function = new lambda.Function(this, props.name, {
       runtime: lambda.Runtime.NODEJS_12_X,
-      code: lambda.Code.asset("dist/src/lambdas"),
+      code: lambda.Code.asset("dist/bundle/"),
       handler: props.handler
     });
   }

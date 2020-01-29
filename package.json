@@ -8,7 +8,8 @@
     "build": "tsc",
     "cdk": "cdk",
     "clean": "rm -rf dist/ && ./cleanfiles.sh",
-    "release": "npm run clean && npm run build && npm run test",
+    "pack": "webpack --mode development",
+    "release": "npm run clean && npm run pack && npm run test",
     "test": "jest",
     "watch": "tsc -w"
   },
@@ -20,8 +21,10 @@
     "aws-sdk-mock": "^5.0.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
+    "ts-loader": "^6.2.1",
     "ts-node": "^8.1.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "webpack": "^4.41.5"
   },
   "dependencies": {
     "@aws-cdk/aws-dynamodb": "^1.22.0",

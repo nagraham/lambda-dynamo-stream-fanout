@@ -23,10 +23,21 @@ After you have set up your environment, it's simple:
 
 ```
 npm run release
-cdk
-bootstrap
+```
+
+If it's your first time building, run:
+
+```
+cdk bootstrap
+```
+
+And then run:
+
+```
 cdk deploy
 ```
+
+Although `cdk deploy` will take care of wrapping your code up and sending it to S3, it doesn't do anything to package up TypeScript or node_modules or anything (the Serverless Framework evidentially has some nice stuff, so maybe I'll use that in another project). This package uses Webpack to transform and bundle the code + imported dependencies into a single `handlers.js` file that we can deploy to lambda. It runs in "development" mode so it will include the full source map so that exceptions will accurately refer to the original TypeScript file's lines (normally not kosher for production frontend code where you wouldn't want users to snoop through your code). Webpack in general is a nice alternative to some other ideas for bundling in dependencies, [like copying the full node_modules file](https://github.com/aws-samples/aws-cdk-examples/issues/110), and deploying that to lambda -- that is just hacky and wrong (this is a prototype project, and the node_modules package is already 250MB . . . ).
 
 ## Load data to Dynamo
 

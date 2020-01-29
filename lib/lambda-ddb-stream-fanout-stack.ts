@@ -18,7 +18,7 @@ export class LambdaDdbStreamFanoutStack extends core.Stack {
 
     const logInputLambda = new BasicLambda(this, 'LogInputLambda', {
       name: "LogInputLambda",
-      handler: "log-input.handler",
+      handler: "handlers.logInput",
     });
     new LimitedRetryDynamoEventSource(this, "TodoTableToLogInputLambdaEventSource", {
       dynamoTable: todoDynamoTable.table,
@@ -27,7 +27,7 @@ export class LambdaDdbStreamFanoutStack extends core.Stack {
 
     const todoLambda = new BasicLambda(this, 'TodoLambda', {
       name: 'TodoLambda',
-      handler: 'todo-handler.handler',
+      handler: 'handlers.handleTodos',
     })
     new LimitedRetryDynamoEventSource(this, "TodoTableToTodoLambdaEventSource", {
       dynamoTable: todoDynamoTable.table,
